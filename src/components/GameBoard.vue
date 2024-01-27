@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { CardService } from '@/services/CardService'
 import Card from '@/components/Card.vue'
 import ScoreBoard from '@/components/ScoreBoard.vue'
@@ -26,10 +26,12 @@ import EnterName from '@/components/EnterName.vue'
 
 const cards = ref([])
 const flippedCards = ref([])
-const gameOver = ref(false)
 const errors = ref(0)
 const matches = ref(0)
 const playerName = ref(localStorage.getItem('playerName') || '')
+const gameOver = computed(() => {
+  return matches.value === cards.value.length / 2
+})
 
 const fillBoard = async () => {
   const animalImages = await CardService.getAnimalImages()
@@ -37,39 +39,57 @@ const fillBoard = async () => {
   cards.value = CardService.shuffleCards(pairedCards)
 }
 
-const checkGameOver = () => {
-  if (matches.value === cards.value.length / 2) {
-    gameOver.value = true
-  }
-}
-
 const handleCardClick = (clickedCardId) => {
   const clickedCard = cards.value.find((card) => card.id === clickedCardId)
 
-  if (!clickedCard.isFlipped && flippedCards.value.length < 2) {
-    clickedCard.isFlipped = true
-    flippedCards.value.push(clickedCard)
-
-    if (flippedCards.value.length === 2) {
-      const [firstCard, secondCard] = flippedCards.value
-      if (firstCard.image === secondCard.image) {
-        firstCard.isMatched = true
-        secondCard.isMatched = true
-        flippedCards.value = []
-        matches.value += 1
-      } else {
-        errors.value += 1
-
-        setTimeout(() => {
-          firstCard.isFlipped = false
-          secondCard.isFlipped = false
-          flippedCards.value = []
-        }, 1000)
-      }
-    }
+  if (!canFlipCard(clickedCard)) {
+    return
   }
 
-  checkGameOver()
+  flipCard(clickedCard)
+
+  if (flippedCards.value.length < 2) {
+    return
+  }
+
+  const [firstCard, secondCard] = flippedCards.value
+
+  if (areCardsMatching(firstCard, secondCard)) {
+    handleMatchingCards(firstCard, secondCard)
+    return
+  }
+
+  handleNonMatchingCards(firstCard, secondCard)
+}
+
+const canFlipCard = (card) => {
+  return !card.isFlipped && flippedCards.value.length < 2
+}
+
+const flipCard = (card) => {
+  card.isFlipped = true
+  flippedCards.value.push(card)
+}
+
+const areCardsMatching = (firstCard, secondCard) => {
+  return firstCard.image === secondCard.image
+}
+
+const handleMatchingCards = (firstCard, secondCard) => {
+  firstCard.isMatched = true
+  secondCard.isMatched = true
+  flippedCards.value = []
+  matches.value += 1
+}
+
+const handleNonMatchingCards = (firstCard, secondCard) => {
+  errors.value += 1
+
+  setTimeout(() => {
+    firstCard.isFlipped = false
+    secondCard.isFlipped = false
+    flippedCards.value = []
+  }, 1000)
 }
 
 const handleNameSubmitted = (name) => {
