@@ -1,0 +1,86 @@
+<!-- components/GameBoard.vue -->
+
+<template>
+  <div>
+    <div class="game-board">
+      <Card
+        v-for="card in shuffledCards"
+        :key="card.id"
+        :card="card"
+        @card-click="handleCardClick"
+      />
+    </div>
+    <ScoreBoard :errors="errors" :matches="matches" />
+    <div v-if="gameOver" class="game-over">
+      <p>Congratulations, {{ playerName }}!</p>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import { CardService } from '@/services/CardService'
+import Card from '@/components/Card.vue'
+import ScoreBoard from '@/components/ScoreBoard.vue'
+
+const cards = ref([])
+const flippedCards = ref([])
+const gameOver = ref(false)
+const errors = ref(0)
+const matches = ref(0)
+
+const fillBoard = async () => {
+  const animalImages = await CardService.fetchAnimalImages()
+  const pairedCards = CardService.createCardPairs(animalImages)
+  cards.value = CardService.shuffleCards(pairedCards)
+}
+
+const checkGameOver = () => {}
+
+const handleCardClick = (clickedCardId) => {
+  const clickedCard = cards.value.find((card) => card.id === clickedCardId)
+
+  if (!clickedCard.isFlipped && flippedCards.value.length < 2) {
+    clickedCard.isFlipped = true
+    flippedCards.value.push(clickedCard)
+
+    if (flippedCards.value.length === 2) {
+      const [firstCard, secondCard] = flippedCards.value
+      if (firstCard.image === secondCard.image) {
+        firstCard.isMatched = true
+        secondCard.isMatched = true
+        flippedCards.value = []
+        matches.value += 1
+      } else {
+        errors.value += 1
+
+        setTimeout(() => {
+          firstCard.isFlipped = false
+          secondCard.isFlipped = false
+          flippedCards.value = []
+        }, 1000)
+      }
+    }
+  }
+
+  checkGameOver()
+}
+
+onMounted(async () => {
+  await fillBoard()
+})
+</script>
+
+<style scoped>
+.game-board {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.game-over {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+  color: #28a745;
+}
+</style>

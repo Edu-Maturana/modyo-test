@@ -4,12 +4,20 @@
     :class="{ flipped: card.isFlipped, matched: card.isMatched }"
     @click="handleCardClick"
   >
-    <img :src="card.image" alt="Animal Card" />
+    <div class="card-inner">
+      <div class="card-front"></div>
+      <div class="card-back">
+        <img :src="card.image" alt="Animal Card" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-const props = defineProps(['card'])
+import { defineProps, defineEmits } from 'vue'
+
+const { card } = defineProps(['card'])
+const { emit } = defineEmits()
 
 const handleCardClick = () => {
   if (!card.isFlipped && !card.isMatched) {
@@ -22,23 +30,44 @@ const handleCardClick = () => {
 .card {
   width: 100px;
   height: 150px;
-  background-color: #eee;
-  border: 1px solid #ddd;
-  cursor: pointer;
   margin: 5px;
   perspective: 1000px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.5s;
 }
 
-.card img {
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.card-front {
+  background-color: #eee;
+  border: 1px solid #ddd;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.card-back img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.card.flipped {
-  transform: rotateY(180deg);
 }
 
 .card.matched {
