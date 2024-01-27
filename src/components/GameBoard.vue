@@ -2,13 +2,8 @@
 
 <template>
   <div>
-    <div class="game-board">
-      <Card
-        v-for="card in shuffledCards"
-        :key="card.id"
-        :card="card"
-        @card-click="handleCardClick"
-      />
+    <div class="game-board" v-if="cards.length">
+      <Card v-for="card in cards" :key="card.id" :card="card" @card-click="handleCardClick" />
     </div>
     <ScoreBoard :errors="errors" :matches="matches" />
     <div v-if="gameOver" class="game-over">
@@ -30,7 +25,7 @@ const errors = ref(0)
 const matches = ref(0)
 
 const fillBoard = async () => {
-  const animalImages = await CardService.fetchAnimalImages()
+  const animalImages = await CardService.getAnimalImages()
   const pairedCards = CardService.createCardPairs(animalImages)
   cards.value = CardService.shuffleCards(pairedCards)
 }

@@ -16,12 +16,12 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue'
 
-const { card } = defineProps(['card'])
-const { emit } = defineEmits()
+const props = defineProps(['card'])
+const emit = defineEmits()
 
 const handleCardClick = () => {
-  if (!card.isFlipped && !card.isMatched) {
-    emit('card-click', card.id)
+  if (!props.card.isFlipped && !props.card.isMatched) {
+    emit('card-click', props.card.id)
   }
 }
 </script>

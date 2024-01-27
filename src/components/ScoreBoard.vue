@@ -1,11 +1,11 @@
 <template>
   <div class="score-board">
     <div class="score-item">
-      <p>Errors:</p>
+      <p>Errores:</p>
       <span>{{ errors }}</span>
     </div>
     <div class="score-item">
-      <p>Matches:</p>
+      <p>Aciertos:</p>
       <span>{{ matches }}</span>
     </div>
   </div>
