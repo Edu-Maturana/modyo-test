@@ -2,12 +2,15 @@
 
 <template>
   <div>
-    <div class="game-board" v-if="cards.length">
-      <Card v-for="card in cards" :key="card.id" :card="card" @card-click="handleCardClick" />
-    </div>
-    <ScoreBoard :errors="errors" :matches="matches" />
-    <div v-if="gameOver" class="game-over">
-      <p>Congratulations, {{ playerName }}!</p>
+    <EnterName v-if="!playerName" @name-submitted="handleNameSubmitted" />
+    <div v-if="playerName">
+      <div class="game-board" v-if="cards.length">
+        <Card v-for="card in cards" :key="card.id" :card="card" @card-click="handleCardClick" />
+      </div>
+      <ScoreBoard :errors="errors" :matches="matches" />
+      <div v-if="gameOver" class="game-over">
+        <p>Congratulations, {{ playerName }}!</p>
+      </div>
     </div>
   </div>
 </template>
@@ -17,12 +20,14 @@ import { ref, onMounted } from 'vue'
 import { CardService } from '@/services/CardService'
 import Card from '@/components/Card.vue'
 import ScoreBoard from '@/components/ScoreBoard.vue'
+import EnterName from '@/components/EnterName.vue'
 
 const cards = ref([])
 const flippedCards = ref([])
 const gameOver = ref(false)
 const errors = ref(0)
 const matches = ref(0)
+const playerName = ref('')
 
 const fillBoard = async () => {
   const animalImages = await CardService.getAnimalImages()
@@ -61,8 +66,13 @@ const handleCardClick = (clickedCardId) => {
   checkGameOver()
 }
 
-onMounted(async () => {
-  await fillBoard()
+const handleNameSubmitted = (name) => {
+  playerName.value = name
+  fillBoard()
+}
+
+onMounted(() => {
+  // Optionally show the modal here if playerName is not set
 })
 </script>
 
