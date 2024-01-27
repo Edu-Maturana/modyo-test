@@ -3,10 +3,12 @@
 <template>
   <div>
     <EnterName v-if="!playerName" @name-submitted="handleNameSubmitted" />
-    <div v-if="playerName">
+    <div v-else>
+      <h2 class="text-center">Vamos, {{ playerName }}!</h2>
       <div class="game-board" v-if="cards.length">
         <Card v-for="card in cards" :key="card.id" :card="card" @card-click="handleCardClick" />
       </div>
+
       <ScoreBoard :errors="errors" :matches="matches" />
       <div v-if="gameOver" class="game-over">
         <p>Congratulations, {{ playerName }}!</p>
@@ -27,7 +29,7 @@ const flippedCards = ref([])
 const gameOver = ref(false)
 const errors = ref(0)
 const matches = ref(0)
-const playerName = ref('')
+const playerName = ref(localStorage.getItem('playerName') || '')
 
 const fillBoard = async () => {
   const animalImages = await CardService.getAnimalImages()
@@ -68,11 +70,10 @@ const handleCardClick = (clickedCardId) => {
 
 const handleNameSubmitted = (name) => {
   playerName.value = name
-  fillBoard()
 }
 
 onMounted(() => {
-  // Optionally show the modal here if playerName is not set
+  fillBoard()
 })
 </script>
 
