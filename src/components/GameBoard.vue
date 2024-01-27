@@ -37,7 +37,11 @@ const fillBoard = async () => {
   cards.value = CardService.shuffleCards(pairedCards)
 }
 
-const checkGameOver = () => {}
+const checkGameOver = () => {
+  if (matches.value === cards.value.length / 2) {
+    gameOver.value = true
+  }
+}
 
 const handleCardClick = (clickedCardId) => {
   const clickedCard = cards.value.find((card) => card.id === clickedCardId)
