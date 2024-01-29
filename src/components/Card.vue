@@ -1,13 +1,13 @@
 <template>
   <div
     class="card"
-    :class="{ flipped: card.isFlipped, matched: card.isMatched }"
+    :class="{ 'card--flipped': card.isFlipped, 'card--matched': card.isMatched }"
     @click="handleCardClick"
   >
-    <div class="card-inner">
-      <div class="card-front"></div>
-      <div class="card-back">
-        <img :src="card.image" alt="Animal Card" />
+    <div class="card__inner">
+      <div class="card__front"></div>
+      <div class="card__back">
+        <img :src="card.image" alt="Animal Card" class="card__image" />
       </div>
     </div>
   </div>
@@ -36,41 +36,41 @@ const handleCardClick = () => {
   cursor: pointer;
 }
 
-.card-inner {
+.card__inner {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.5s;
 }
 
-.card.flipped .card-inner {
+.card--flipped .card__inner {
   transform: rotateY(180deg);
 }
 
-.card-front,
-.card-back {
+.card__front,
+.card__back {
   width: 100%;
   height: 100%;
   position: absolute;
   backface-visibility: hidden;
 }
 
-.card-front {
+.card__front {
   background-color: #eee;
   border: 1px solid #ddd;
 }
 
-.card-back {
+.card__back {
   transform: rotateY(180deg);
 }
 
-.card-back img {
+.card__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.card.matched {
+.card--matched {
   pointer-events: none;
   opacity: 0.5;
 }
