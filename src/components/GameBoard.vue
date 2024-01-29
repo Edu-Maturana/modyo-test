@@ -1,8 +1,8 @@
 <template>
   <div>
     <EnterName v-if="!playerName" @name-submitted="handleNameSubmitted" />
-    <div v-else-if="loading" class="text-center">
-      <p>Cargando...</p>
+    <div v-else-if="loading">
+      <Loader />
     </div>
     <div v-else>
       <h2 class="game-title text-center">¡Vamos, {{ playerName }}!</h2>
@@ -30,6 +30,7 @@ import { CardService } from '@/services/CardService'
 import Card from '@/components/Card.vue'
 import ScoreBoard from '@/components/ScoreBoard.vue'
 import EnterName from '@/components/EnterName.vue'
+import Loader from '@/components/Loader.vue'
 
 const cards = ref([])
 const flippedCards = ref([])
