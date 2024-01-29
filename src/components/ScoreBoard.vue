@@ -21,6 +21,14 @@ const props = defineProps(['errors', 'matches'])
   justify-content: space-around;
   margin-top: 10px;
   border-radius: 16px;
+  padding: 5px;
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0;
+  }
 }
 
 .score-item {

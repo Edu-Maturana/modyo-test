@@ -119,8 +119,6 @@ onMounted(() => {
   justify-content: center;
   max-width: 700px;
   margin: auto;
-  padding: 5px;
-  background-color: #2d3748;
 }
 
 .game-board__card {
@@ -133,7 +131,7 @@ onMounted(() => {
     max-width: 500px;
   }
   .game-board__card {
-    flex: 0 0 calc(50% - 15px);
+    flex: 0 0 calc(33% - 15px);
   }
 }
 .game-over {
