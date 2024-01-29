@@ -1,14 +1,14 @@
 <template>
-  <div class="score-board">
-    <div class="score-item score-item--errors">
+  <section class="score-board" aria-label="Puntuación">
+    <article class="score-item score-item--errors" aria-label="Errores">
       <p class="score-label">❌ Errores:</p>
       <span class="score-value">{{ errors }}</span>
-    </div>
-    <div class="score-item score-item--matches">
+    </article>
+    <article class="score-item score-item--matches" aria-label="Aciertos">
       <p class="score-label">✅ Aciertos:</p>
       <span class="score-value">{{ matches }}</span>
-    </div>
-  </div>
+    </article>
+  </section>
 </template>
 
 <script setup>
