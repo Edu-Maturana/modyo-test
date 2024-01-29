@@ -19,15 +19,19 @@
       </div>
 
       <ScoreBoard :errors="errors" :matches="matches" />
-      <div v-if="gameOver" class="text-center" role="status">
-        <p class="game-over__message">¡Felicitaciones, {{ playerName }}!</p>
-      </div>
+      <Congratulations
+        v-if="gameOver"
+        :playerName="playerName"
+        :errors="errors"
+        :matches="matches"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
+import Congratulations from '@/components/Congratulations.vue'
 import { CardService } from '@/services/CardService'
 import Card from '@/components/Card.vue'
 import ScoreBoard from '@/components/ScoreBoard.vue'
@@ -40,9 +44,7 @@ const errors = ref(0)
 const matches = ref(0)
 const playerName = ref(localStorage.getItem('playerName') || '')
 const loading = ref(true)
-const gameOver = computed(() => {
-  return matches.value === cards.value.length / 2
-})
+const gameOver = computed(() => matches.value === cards.value.length / 2)
 
 const fillBoard = async () => {
   const animalImages = await CardService.getAnimalImages()
