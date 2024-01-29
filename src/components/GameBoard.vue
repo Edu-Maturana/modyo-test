@@ -1,6 +1,9 @@
 <template>
   <div>
     <EnterName v-if="!playerName" @name-submitted="handleNameSubmitted" />
+    <div v-else-if="loading" class="text-center">
+      <p>Cargando...</p>
+    </div>
     <div v-else>
       <h2 class="game-title text-center">¡Vamos, {{ playerName }}!</h2>
       <div class="game-board" v-if="cards.length">
@@ -33,6 +36,7 @@ const flippedCards = ref([])
 const errors = ref(0)
 const matches = ref(0)
 const playerName = ref(localStorage.getItem('playerName') || '')
+const loading = ref(true)
 const gameOver = computed(() => {
   return matches.value === cards.value.length / 2
 })
@@ -41,6 +45,7 @@ const fillBoard = async () => {
   const animalImages = await CardService.getAnimalImages()
   const pairedCards = CardService.createCardPairs(animalImages)
   cards.value = CardService.shuffleCards(pairedCards)
+  loading.value = false
 }
 
 const handleCardClick = (clickedCardId) => {
@@ -112,6 +117,8 @@ onMounted(() => {
   justify-content: center;
   max-width: 700px;
   margin: auto;
+  background-color: #fff;
+  padding: 5px;
 }
 
 .game-board__card {
