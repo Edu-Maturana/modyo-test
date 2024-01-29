@@ -14,7 +14,13 @@
       />
     </div>
 
-    <button @click="saveName" class="btn btn-primary w-100" tabindex="0" :disabled="!submitEnabled">
+    <button
+      @click="saveName"
+      class="btn btn-primary w-100"
+      tabindex="0"
+      :disabled="!submitEnabled"
+      data-testid="submit-button"
+    >
       Comenzar a jugar
     </button>
   </div>
