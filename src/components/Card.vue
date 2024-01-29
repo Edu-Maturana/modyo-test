@@ -3,6 +3,7 @@
     class="card"
     :class="{ 'card--flipped': card.isFlipped, 'card--matched': card.isMatched }"
     @click="handleCardClick"
+    data-testid="card"
   >
     <div class="card__inner">
       <div class="card__front">
