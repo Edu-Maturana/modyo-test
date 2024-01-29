@@ -5,20 +5,21 @@
       <Loader />
     </div>
     <div v-else>
-      <h3 class="game-title text-center">¡Vamos, {{ playerName }}!</h3>
+      <h3 class="game-title text-center" tabindex="0">¡Vamos, {{ playerName }}!</h3>
       <p class="game-subtitle text-center">Encuentra los pares de cartas</p>
-      <div class="game-board" v-if="cards.length">
+      <div class="game-board" v-if="cards.length" role="grid">
         <Card
           v-for="card in cards"
           :key="card.id"
           :card="card"
           @card-click="handleCardClick"
           class="game-board__card"
+          tabindex="0"
         />
       </div>
 
       <ScoreBoard :errors="errors" :matches="matches" />
-      <div v-if="gameOver" class="text-center">
+      <div v-if="gameOver" class="text-center" role="status">
         <p class="game-over__message">¡Felicitaciones, {{ playerName }}!</p>
       </div>
     </div>
