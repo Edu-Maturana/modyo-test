@@ -2,7 +2,7 @@
   <div>
     <EnterName v-if="!playerName" @name-submitted="handleNameSubmitted" />
     <div v-else>
-      <h2 class="game-title text-center">Vamos, {{ playerName }}!</h2>
+      <h2 class="game-title text-center">¡Vamos, {{ playerName }}!</h2>
       <div class="game-board" v-if="cards.length">
         <Card
           v-for="card in cards"
@@ -112,7 +112,6 @@ onMounted(() => {
   justify-content: center;
   max-width: 700px;
   margin: auto;
-  background: white;
 }
 
 .game-board__card {

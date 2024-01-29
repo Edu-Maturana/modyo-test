@@ -5,7 +5,9 @@
     @click="handleCardClick"
   >
     <div class="card__inner">
-      <div class="card__front"></div>
+      <div class="card__front">
+        <span v-if="!card.isFlipped" class="card__emoji">🤔</span>
+      </div>
       <div class="card__back">
         <img :src="card.image" alt="Animal Card" class="card__image" />
       </div>
@@ -34,16 +36,19 @@ const handleCardClick = () => {
   perspective: 1000px;
   transform-style: preserve-3d;
   cursor: pointer;
+  transition: transform 0.5s ease;
+  position: relative;
+  border: none;
+  border-radius: 1rem;
 }
 
 .card__inner {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.5s;
 }
 
-.card--flipped .card__inner {
+.card--flipped {
   transform: rotateY(180deg);
 }
 
@@ -57,7 +62,13 @@ const handleCardClick = () => {
 
 .card__front {
   background-color: #eee;
-  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__emoji {
+  font-size: 3rem;
 }
 
 .card__back {
@@ -68,10 +79,10 @@ const handleCardClick = () => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  visibility: visible;
 }
 
 .card--matched {
   pointer-events: none;
-  opacity: 0.5;
 }
 </style>
