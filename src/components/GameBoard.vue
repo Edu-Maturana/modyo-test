@@ -2,14 +2,20 @@
   <div>
     <EnterName v-if="!playerName" @name-submitted="handleNameSubmitted" />
     <div v-else>
-      <h2 class="text-center">Vamos, {{ playerName }}!</h2>
+      <h2 class="game-title text-center">Vamos, {{ playerName }}!</h2>
       <div class="game-board" v-if="cards.length">
-        <Card v-for="card in cards" :key="card.id" :card="card" @card-click="handleCardClick" />
+        <Card
+          v-for="card in cards"
+          :key="card.id"
+          :card="card"
+          @card-click="handleCardClick"
+          class="game-board__card"
+        />
       </div>
 
       <ScoreBoard :errors="errors" :matches="matches" />
-      <div v-if="gameOver" class="game-over">
-        <p>¡Felicitaciones, {{ playerName }}!</p>
+      <div v-if="gameOver" class="text-center">
+        <p class="game-over__message">¡Felicitaciones, {{ playerName }}!</p>
       </div>
     </div>
   </div>
@@ -103,8 +109,25 @@ onMounted(() => {
 .game-board {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  max-width: 700px;
+  margin: auto;
+  background: white;
 }
 
+.game-board__card {
+  flex: 0 0 calc(25% - 10px);
+  margin: 5px;
+}
+
+@media (max-width: 768px) {
+  .game-board {
+    max-width: 500px;
+  }
+  .game-board__card {
+    flex: 0 0 calc(50% - 15px);
+  }
+}
 .game-over {
   text-align: center;
   margin-top: 20px;
