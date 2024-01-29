@@ -3,7 +3,13 @@
     <h1 class="mb-3">Bienvenido a Memory Game</h1>
 
     <div class="mb-3 w-100">
-      <input v-model="name" class="form-control" placeholder="Ingresa tu nombre" />
+      <input
+        v-model="name"
+        class="form-control"
+        placeholder="Ingresa tu nombre"
+        @keyup.enter="saveName"
+        autofocus
+      />
     </div>
     <button @click="saveName" class="btn btn-primary w-100">Comenzar a jugar</button>
   </div>

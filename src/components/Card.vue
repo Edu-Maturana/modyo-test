@@ -39,7 +39,6 @@ const handleCardClick = () => {
   transition: transform 0.5s ease;
   position: relative;
   border: none;
-  border-radius: 1rem;
 }
 
 .card__inner {

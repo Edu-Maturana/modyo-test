@@ -1,6 +1,6 @@
 <template>
   <div class="loader-container text-center">
-    <p class="loader-container__text">Cargando las cartas...</p>
+    <p class="loader-container__text">Cargando cartas...</p>
     <span class="loader-container__icon">🃏</span>
   </div>
 </template>
