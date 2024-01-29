@@ -30,7 +30,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+
 import Congratulations from '@/components/Congratulations.vue'
 import { CardService } from '@/services/CardService'
 import Card from '@/components/Card.vue'
@@ -136,11 +137,5 @@ onMounted(() => {
   .game-board__card {
     flex: 0 0 calc(33% - 15px);
   }
-}
-.game-over {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 20px;
-  color: #28a745;
 }
 </style>

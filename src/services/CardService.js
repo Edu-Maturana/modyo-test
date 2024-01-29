@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API_ENDPOINT =
-  'https://fed-team.modyo.cloud/api/content/spaces/animals/types/game/entries?per_page=1'
+  'https://fed-team.modyo.cloud/api/content/spaces/animals/types/game/entries?per_page=6'
 
 export const CardService = {
   async getAnimalImages() {
