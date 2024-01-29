@@ -1,6 +1,6 @@
 <template>
   <div class="backdrop" id="congratsModal" aria-labelledby="congratsModalLabel" aria-hidden="true">
-    <div class="congrats-modal">
+    <div class="congrats-modal" role="dialog" aria-modal="true">
       <div class="modal-header">
         <h5 class="modal-title" id="congratsModalLabel">¡Felicitaciones, {{ playerName }}!</h5>
       </div>
@@ -11,6 +11,7 @@
           class="btn btn-primary close-btn w-100"
           data-bs-dismiss="modal"
           @click="playAgain"
+          role="button"
         >
           Jugar de nuevo
         </button>
@@ -40,14 +41,13 @@ const playAgain = () => {
   left: 0;
   width: 100%;
   height: 100%;
+  padding: 1rem;
 }
 
 .congrats-modal {
   background-color: #1a202c;
   border-radius: 16px;
   padding: 20px;
-  width: 400px;
-  max-width: 100%;
 }
 
 .modal-body {
@@ -55,5 +55,9 @@ const playAgain = () => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.close-btn {
+  margin-top: 1rem;
 }
 </style>
