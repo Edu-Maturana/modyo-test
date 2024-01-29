@@ -1,11 +1,11 @@
 <template>
   <div class="score-board">
     <div class="score-item score-item--errors">
-      <p class="score-label">👎Errores:</p>
+      <p class="score-label">❌ Errores:</p>
       <span class="score-value">{{ errors }}</span>
     </div>
     <div class="score-item score-item--matches">
-      <p class="score-label">👍Aciertos:</p>
+      <p class="score-label">✅ Aciertos:</p>
       <span class="score-value">{{ matches }}</span>
     </div>
   </div>

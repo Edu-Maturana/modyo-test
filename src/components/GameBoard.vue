@@ -5,7 +5,8 @@
       <Loader />
     </div>
     <div v-else>
-      <h2 class="game-title text-center">¡Vamos, {{ playerName }}!</h2>
+      <h3 class="game-title text-center">¡Vamos, {{ playerName }}!</h3>
+      <p class="game-subtitle text-center">Encuentra los pares de cartas</p>
       <div class="game-board" v-if="cards.length">
         <Card
           v-for="card in cards"
@@ -118,8 +119,8 @@ onMounted(() => {
   justify-content: center;
   max-width: 700px;
   margin: auto;
-  background-color: #fff;
   padding: 5px;
+  background-color: #2d3748;
 }
 
 .game-board__card {

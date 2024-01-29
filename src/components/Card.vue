@@ -60,7 +60,7 @@ const handleCardClick = () => {
 }
 
 .card__front {
-  background-color: #eee;
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
