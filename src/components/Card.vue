@@ -3,14 +3,18 @@
     class="card"
     :class="{ 'card--flipped': card.isFlipped, 'card--matched': card.isMatched }"
     @click="handleCardClick"
+    @keydown.enter="handleCardClick"
+    tabindex="0"
+    role="button"
+    aria-pressed="false"
     data-testid="card"
   >
     <div class="card__inner">
       <div class="card__front">
-        <span v-if="!card.isFlipped" class="card__emoji">🤔</span>
+        <span v-if="!card.isFlipped" class="card__emoji" aria-hidden="true"> 🤔 </span>
       </div>
       <div class="card__back">
-        <img :src="card.image" alt="Animal Card" class="card__image" />
+        <img :src="card.image" :alt="`Animal Card - ${card.id}`" class="card__image" />
       </div>
     </div>
   </div>
