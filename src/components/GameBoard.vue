@@ -1,5 +1,3 @@
-<!-- components/GameBoard.vue -->
-
 <template>
   <div>
     <EnterName v-if="!playerName" @name-submitted="handleNameSubmitted" />
@@ -11,7 +9,7 @@
 
       <ScoreBoard :errors="errors" :matches="matches" />
       <div v-if="gameOver" class="game-over">
-        <p>Congratulations, {{ playerName }}!</p>
+        <p>¡Felicitaciones, {{ playerName }}!</p>
       </div>
     </div>
   </div>

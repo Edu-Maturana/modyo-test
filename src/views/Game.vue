@@ -11,6 +11,5 @@ import GameBoard from '@/components/GameBoard.vue'
 <style scoped>
 .game {
   height: 100vh;
-  margin: 0 auto;
 }
 </style>
