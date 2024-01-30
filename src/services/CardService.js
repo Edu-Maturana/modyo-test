@@ -8,12 +8,7 @@ export const CardService = {
     try {
       const response = await axios.get(API_ENDPOINT)
       const animalImages = response.data.entries.map((entry) => entry.fields.image.url)
-
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(animalImages)
-        }, 2000)
-      })
+      return animalImages
     } catch (error) {
       console.error('Error getting animal images:', error)
       throw error
