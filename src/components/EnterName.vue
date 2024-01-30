@@ -29,7 +29,7 @@
 <script setup>
 import { ref, defineEmits, computed } from 'vue'
 
-const emit = defineEmits()
+const emit = defineEmits(['name-submitted'])
 const name = ref('')
 const submitEnabled = computed(() => name.value.trim() !== '')
 
