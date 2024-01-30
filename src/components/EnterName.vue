@@ -24,6 +24,14 @@
       Comenzar a jugar
     </button>
   </div>
+  <p class="made-by text-center mt-3">
+    Hecho con
+    <span class="text-danger">&hearts;</span>
+    por
+    <a href="https://github.com/Edu-Maturana" target="_blank" rel="noopener noreferrer"
+      >@Edu-Maturana</a
+    >
+  </p>
 </template>
 
 <script setup>
